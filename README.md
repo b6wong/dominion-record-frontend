@@ -1,3 +1,13 @@
+# Dominion Record Frontend
+
+This is the frontend of Dominion Record which allows you to record the results of Dominion games.
+
+There is an associated backend Dominion Record Backend that this depends on.
+
+The purpose of this is to create a simple application and orchestrate it in the cloud.
+
+For the frontend, we will use S3 / Cloudfront to serve the assets.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -7,7 +17,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:8081](http://localhost:8081) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
