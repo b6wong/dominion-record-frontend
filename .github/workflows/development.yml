@@ -28,7 +28,7 @@ jobs:
       run: npm test
 
     - name: Build static files
-      run: npm run build
+      run: npm run build:dev
 
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
