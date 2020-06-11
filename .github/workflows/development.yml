@@ -2,7 +2,7 @@ name: Development Build
 
 on:
   push:
-    branches: [ test-github-action ]
+    branches: [ master ]
 
 jobs:
   builds:
