@@ -6,15 +6,15 @@ const GamesList = () => {
     const [games, setGames] = useState([]);
     const [currentGame, setCurrentGame] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
-    const [searchTitle, setSearchTitle] = useState("");
+    const [searchPlayer, setSearchPlayer] = useState("");
 
     useEffect(() => {
         retrieveGames();
     }, []);
 
-    const onChangeSearchTitle = e => {
-        const searchTitle = e.target.value;
-        setSearchTitle(searchTitle);
+    const onChangeSearchPlayer = e => {
+        const searchPlayer = e.target.value;
+        setSearchPlayer(searchPlayer);
     };
 
     const retrieveGames = () => {
@@ -50,8 +50,8 @@ const GamesList = () => {
             });
     };
 
-    const findByTitle = () => {
-        GameDataService.getAll()
+    const findByPlayer = () => {
+        GameDataService.findByPlayer(searchPlayer)
             .then(response => {
                 setGames(response.data);
                 console.log(response.data);
@@ -59,16 +59,6 @@ const GamesList = () => {
             .catch(e => {
                 console.log(e);
             });
-        /*
-        TutorialDataService.findByTitle(searchTitle)
-            .then(response => {
-                setTutorials(response.data);
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        */
     };
 
     return (
@@ -78,15 +68,15 @@ const GamesList = () => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Search by title"
-                        value={searchTitle}
-                        onChange={onChangeSearchTitle}
+                        placeholder="Search by player"
+                        value={searchPlayer}
+                        onChange={onChangeSearchPlayer}
                     />
                     <div className="input-group-append">
                         <button
                             className="btn btn-outline-secondary"
                             type="button"
-                            onClick={findByTitle}
+                            onClick={findByPlayer}
                         >
                             Search
                 </button>
