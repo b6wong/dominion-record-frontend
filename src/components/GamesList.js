@@ -6,15 +6,17 @@ const GamesList = () => {
     const [games, setGames] = useState([]);
     const [currentGame, setCurrentGame] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
-    const [searchTitle, setSearchTitle] = useState("");
+    const [searchPlayer, setSearchPlayer] = useState("");
+    const [showRecord, setShowRecord] = useState(false);
 
     useEffect(() => {
         retrieveGames();
     }, []);
 
-    const onChangeSearchTitle = e => {
-        const searchTitle = e.target.value;
-        setSearchTitle(searchTitle);
+    const onChangeSearchPlayer = e => {
+        const searchPlayer = e.target.value;
+        setShowRecord(false);
+        setSearchPlayer(searchPlayer);
     };
 
     const retrieveGames = () => {
@@ -50,25 +52,18 @@ const GamesList = () => {
             });
     };
 
-    const findByTitle = () => {
-        GameDataService.getAll()
+    const findByPlayer = () => {
+        GameDataService.findByPlayer(searchPlayer)
             .then(response => {
                 setGames(response.data);
+                if (searchPlayer) {
+                    setShowRecord(true);
+                }
                 console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
             });
-        /*
-        TutorialDataService.findByTitle(searchTitle)
-            .then(response => {
-                setTutorials(response.data);
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        */
     };
 
     return (
@@ -78,15 +73,15 @@ const GamesList = () => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Search by title"
-                        value={searchTitle}
-                        onChange={onChangeSearchTitle}
+                        placeholder="Search by player"
+                        value={searchPlayer}
+                        onChange={onChangeSearchPlayer}
                     />
                     <div className="input-group-append">
                         <button
                             className="btn btn-outline-secondary"
                             type="button"
-                            onClick={findByTitle}
+                            onClick={findByPlayer}
                         >
                             Search
                 </button>
@@ -94,8 +89,19 @@ const GamesList = () => {
                 </div>
             </div>
             <div className="col-md-6">
-                <h4>Games</h4>
-
+                <h4>Games
+                {
+                    showRecord ?
+                    "- W: " + games.filter(game => 
+                        game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" ||
+                        game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2").length +
+                    "  L: " + games.filter(game => 
+                            game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" ||
+                            game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1").length +
+                    "  T:" + games.filter(game => game.result === "T").length
+                    : ""
+                }
+                </h4>
                 <ul className="list-group">
                     {games &&
                         games.map((game, index) => (
@@ -103,16 +109,20 @@ const GamesList = () => {
                                 className={
                                     "list-group-item " 
                                     + (index === currentIndex ? "active" : "") 
-                                    + (game.player1 === "PandaBearGuy" && game.result === "1" ? " won" : "") 
-                                    + (game.player2 === "PandaBearGuy" && game.result === "2" ? " won" : "") 
-                                    + (game.player1 === "PandaBearGuy" && game.result === "2" ? " lost" : "") 
-                                    + (game.player2 === "PandaBearGuy" && game.result === "1" ? " lost" : "") 
+                                    + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" && showRecord ? " won" : "") 
+                                    + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" && showRecord ? " won" : "") 
+                                    + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" && showRecord ? " lost" : "") 
+                                    + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" && showRecord ? " lost" : "") 
                                     + (game.result === "T" ? " tie" : "")
                                 }
                                 onClick={() => setActiveGame(game, index)}
                                 key={index}
                             >
-                                {game.player1} ({game.score1}) - ({game.score2}) {game.player2}
+                                {
+                                    game.player2.toLowerCase() === searchPlayer.toLowerCase() ?
+                                    `${game.player2} (${game.score2}) - (${game.score1}) ${game.player1}` :
+                                    `${game.player1} (${game.score1}) - (${game.score2}) ${game.player2}`
+                                }
                             </li>
                         ))}
                 </ul>

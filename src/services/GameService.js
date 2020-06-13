@@ -24,11 +24,9 @@ const removeAll = () => {
   return http.delete(`/games`);
 };
 
-/*
-const findByTitle = title => {
-  return http.get(`/games?title=${title}`);
+const findByPlayer = player => {
+  return http.get(`/games?player=${player}`);
 };
-*/
 
 export default {
   getAll,
@@ -36,7 +34,6 @@ export default {
   create,
   update,
   remove,
-  removeAll
-//  ,
-//  findByTitle
+  removeAll,
+  findByPlayer
 };
