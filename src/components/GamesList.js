@@ -93,11 +93,11 @@ const GamesList = () => {
                 {
                     showRecord ?
                     "- W: " + games.filter(game => 
-                        game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" ||
-                        game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2").length +
+                        (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1") ||
+                        (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2")).length +
                     "  L: " + games.filter(game => 
-                            game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" ||
-                            game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1").length +
+                        (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2") ||
+                        (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1")).length +
                     "  T:" + games.filter(game => game.result === "T").length
                     : ""
                 }
