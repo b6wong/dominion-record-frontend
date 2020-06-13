@@ -93,16 +93,20 @@ const GamesList = () => {
                                 className={
                                     "list-group-item " 
                                     + (index === currentIndex ? "active" : "") 
-                                    + (game.player1 === "PandaBearGuy" && game.result === "1" ? " won" : "") 
-                                    + (game.player2 === "PandaBearGuy" && game.result === "2" ? " won" : "") 
-                                    + (game.player1 === "PandaBearGuy" && game.result === "2" ? " lost" : "") 
-                                    + (game.player2 === "PandaBearGuy" && game.result === "1" ? " lost" : "") 
+                                    + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" ? " won" : "") 
+                                    + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" ? " won" : "") 
+                                    + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" ? " lost" : "") 
+                                    + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" ? " lost" : "") 
                                     + (game.result === "T" ? " tie" : "")
                                 }
                                 onClick={() => setActiveGame(game, index)}
                                 key={index}
                             >
-                                {game.player1} ({game.score1}) - ({game.score2}) {game.player2}
+                                {
+                                    game.player2.toLowerCase() === searchPlayer.toLowerCase() ?
+                                    `${game.player2} (${game.score2}) - (${game.score1}) ${game.player1}` :
+                                    `${game.player1} (${game.score1}) - (${game.score2}) ${game.player2}`
+                                }
                             </li>
                         ))}
                 </ul>
