@@ -113,7 +113,7 @@ const GamesList = () => {
                                     + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" && showRecord ? " won" : "") 
                                     + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" && showRecord ? " lost" : "") 
                                     + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" && showRecord ? " lost" : "") 
-                                    + (game.result === "T" ? " tie" : "")
+                                    + (showRecord && game.result === "T" ? " tie" : "")
                                 }
                                 onClick={() => setActiveGame(game, index)}
                                 key={index}
