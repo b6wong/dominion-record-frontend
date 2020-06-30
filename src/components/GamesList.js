@@ -107,8 +107,8 @@ const GamesList = () => {
                         games.map((game, index) => (
                             <li
                                 className={
-                                    "list-group-item " 
-                                    + (index === currentIndex ? "active" : "") 
+                                    "list-group-item list-group-item-custom " 
+                                    + (index === currentIndex ? "selected" : "") 
                                     + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "1" && showRecord ? " won" : "") 
                                     + (game.player2.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" && showRecord ? " won" : "") 
                                     + (game.player1.toLowerCase() === searchPlayer.toLowerCase() && game.result === "2" && showRecord ? " lost" : "") 
@@ -119,7 +119,7 @@ const GamesList = () => {
                                 key={index}
                             >
                                 {
-                                    game.player2.toLowerCase() === searchPlayer.toLowerCase() ?
+                                    showRecord && game.player2.toLowerCase() === searchPlayer.toLowerCase() ?
                                     `${game.player2} (${game.score2}) - (${game.score1}) ${game.player1}` :
                                     `${game.player1} (${game.score1}) - (${game.score2}) ${game.player2}`
                                 }

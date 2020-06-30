@@ -39,7 +39,7 @@
 
 .list {
   text-align: left;
-  max-width: 750px;
+  max-width: 1000px;
   margin: auto;
 }
 
@@ -53,6 +53,14 @@
   margin: auto;
 }
 
+.list-group-item-custom {
+  position: relative;
+  display: block;
+  padding: .2rem 0.5rem;
+  background-color: #f9f9f9;
+  border: 1px solid rgba(0,0,0,.125);
+}
+
 .won {
   background-color: #C1F0B2;
 }
@@ -63,4 +71,8 @@
 
 .tie {
   background-color: #F9F2CC;
+}
+
+.selected {
+  font-weight: bold;
 }
